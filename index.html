@@ -10,32 +10,21 @@
         }
     </style>
     <script>
-        function validateForm(event) {
-            event.preventDefault(); // フォームのデフォルトの送信動作を防ぐ
-            let firstName = document.getElementById('first_name').value;
-            let lastName = document.getElementById('last_name').value;
-            let pcSkill = document.querySelector('input[name="pc_skill"]:checked');
-            let tasks = document.querySelectorAll('input[name="tasks"]:checked');
-            let message = "";
 
-            if (!firstName || !lastName || !pcSkill || tasks.length === 0) {
-                message = "未記入の項目があります。";
-            } else {
-                message = "<h3>入力内容の一覧</h3>";
-                message += "<p><strong>名前（姓）:</strong> " + firstName + "</p>";
-                message += "<p><strong>名前（名）:</strong> " + lastName + "</p>";
-                message += "<p><strong>パソコンのスキル:</strong> " + pcSkill.nextSibling.textContent + "</p>";
-                message += "<p><strong>自動化したい業務:</strong> ";
-                tasks.forEach(task => {
-                    message += task.nextSibling.textContent + " ";
-                });
-                message += "</p>";
-            }
-            document.getElementById('result').innerHTML = message;
-        }
-    </script>
+    function displayDate() {
+        const today = new Date();
+        const dateString = today.toLocaleDateString('ja-JP', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            weekday: 'long'
+        });
+        document.getElementById('currentDate').textContent = dateString;
+    }
+</script>
+
 </head>
-<body>
+<body  onload="displayDate()">
     <h1>RPA練習用ウェブサイト</h1>
 
     <p class="purpose">
@@ -144,7 +133,13 @@
    　　 <h2>【クリック操作の練習】</h3>
         <h3>このチェックボックスは「左クリック」で操作してみてください</h2>
         <label><input type="checkbox" name="leftclick" value="pagescroll"> チェックできましたか？</label>
+
+        <!-- 取得アクション -->
+   　　 <h2>【値を取得の練習】</h3>
+        <h3>今日の日付を取得しましょう</h2>
+
+    <p id="currentDate">
     </form>
 
-    <div id="result"></div>
+
 </body>
